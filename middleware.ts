@@ -47,17 +47,27 @@ export default clerkMiddleware(async (auth, req) => {
 
   console.log("User is signed in, publicMetadata:", publicMetadata);
 
-  // Redirect to new-school if needed
+  // Verificar se o schoolId está atualizado corretamente
+  console.log("Verificando schoolId no publicMetadata:", publicMetadata);
+
+  // Redirecionar para /new-school se não houver schoolId
   if (!schoolId) {
-    console.log("No schoolId found in publicMetadata:", publicMetadata)
+    console.log("schoolId ausente. Redirecionando para /new-school.");
     if (req.nextUrl.pathname === "/new-school" || req.nextUrl.pathname === "/api/update-clerk-metadata") {
-      console.log("Allowing access to /new-school or /api/update-clerk-metadata.")
-      return NextResponse.next()
+      console.log("Permitindo acesso a /new-school ou /api/update-clerk-metadata.");
+      return NextResponse.next();
     }
-    console.log("Redirecting to /new-school.")
-    const newSchoolUrl = new URL("/new-school", req.url)
-    return NextResponse.redirect(newSchoolUrl)
+    const newSchoolUrl = new URL("/new-school", req.url);
+    return NextResponse.redirect(newSchoolUrl);
   }
+
+  // Redirecionar para /dashboard após criação da escola
+  if (req.nextUrl.pathname === "/new-school" && schoolId) {
+    console.log("schoolId encontrado após criação. Redirecionando para /dashboard.");
+    const dashboardUrl = new URL("/dashboard", req.url);
+    return NextResponse.redirect(dashboardUrl);
+  }
+
   // Allow access
   console.log("User is authenticated and has schoolId or is on allowed route, allowing access.");
   return NextResponse.next();
