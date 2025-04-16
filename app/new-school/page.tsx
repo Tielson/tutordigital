@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { SchoolFormData, schoolFormSchema } from "@/lib/schemas"
 import { createClientSupabaseClient } from "@/lib/supabase"
 import { useUser } from "@clerk/nextjs"
@@ -159,7 +159,6 @@ export default function NewSchoolPage() {
         title: "Escola Criada!",
         description: `A escola "${data.name}" foi cadastrada com sucesso.`,
       });
-
     },
     onError: (error: Error) => {
       console.error("Erro ao criar escola:", error);
