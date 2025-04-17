@@ -1,4 +1,4 @@
-import type { Database } from "@/types/supabase"
+import type { Database } from "@/app/types/supabase"
 import { createClient } from "@supabase/supabase-js"
 
 // Create a single supabase client for the entire server
