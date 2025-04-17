@@ -18,6 +18,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="pt-BR" suppressHydrationWarning>
+        <head>
+          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        </head>
         <body className="text-foreground antialiased">
           <QueryClientProvider client={queryClient}>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
