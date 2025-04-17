@@ -1,7 +1,7 @@
 import { BlogPostCard } from "@/app/components/blog-post-card"
 import { ThemeToggle } from "@/app/components/theme-toggle"
 import { Button } from "@/app/components/ui/button"
-import { createServerSupabaseClient } from "@/lib/supabase"
+import { createServerSupabaseClient } from "@/app/lib/supabase"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 

@@ -1,6 +1,6 @@
 import { ThemeToggle } from "@/app/components/theme-toggle"
 import { Button } from "@/app/components/ui/button"
-import { createServerSupabaseClient } from "@/lib/supabase"
+import { createServerSupabaseClient } from "@/app/lib/supabase"
 import { UserButton } from "@clerk/nextjs"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { GraduationCap } from "lucide-react"

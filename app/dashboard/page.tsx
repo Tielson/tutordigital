@@ -1,5 +1,5 @@
-import { createServerSupabaseClient } from "@/lib/supabase"
-import type { Database } from "@/types/supabase"
+import { createServerSupabaseClient } from "@/app/lib/supabase"
+import type { Database } from "@/app/types/supabase"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import DashboardClient from "./_components/dashboard-client"

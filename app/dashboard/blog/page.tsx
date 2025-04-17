@@ -1,5 +1,5 @@
-import { BlogPostCard } from "@/app/components/blog-post-card"
-import { Button } from "@/app/components/ui/button"
+import { BlogPostCard } from "@/components/blog-post-card"
+import { Button } from "@/components/ui/button"
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"

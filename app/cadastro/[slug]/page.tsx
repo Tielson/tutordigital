@@ -1,5 +1,5 @@
 import StudentRegistrationForm from "@/app/components/student-registration-form"
-import { createServerSupabaseClient } from "@/lib/supabase"
+import { createServerSupabaseClient } from "@/app/lib/supabase"
 import { notFound } from "next/navigation"
 
 interface CadastroPageProps {
