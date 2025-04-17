@@ -8,12 +8,12 @@ export async function POST(req: NextRequest) {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  const { metadata } = await req.json()
+  const { publicMetadata } = await req.json()
   
   const client = await clerkClient()
 
   const user = await client.users.updateUser(userId, {
-    publicMetadata: metadata
+    publicMetadata
   })
   return NextResponse.json({ user })
 }
