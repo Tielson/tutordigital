@@ -11,15 +11,14 @@ type UserPublicMetadata = {
 }
 
 export default async function DashboardPage({ searchParams }: { searchParams: { q?: string } }) {
-  const { userId, sessionClaims } = await auth()
+  const { userId } = await auth()
   const user = await currentUser()
 
   if (!userId || !user) {
     redirect("/sign-in")
   }
 
-  const publicMetadata = sessionClaims?.publicMetadata as UserPublicMetadata | undefined
-  const schoolId = publicMetadata?.schoolId
+  const schoolId = user.publicMetadata.schoolId as string | undefined
 
   if (!schoolId) {
     redirect("/new-school")

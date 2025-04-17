@@ -29,9 +29,7 @@ export default async function DashboardLayout({
 
   const schoolId = user.publicMetadata.schoolId as string | undefined
 
-  console.log("asdasda", schoolId)
   if (!schoolId) {
-    console.log("asdasda", schoolId)
     redirect("/new-school")
   }
 
