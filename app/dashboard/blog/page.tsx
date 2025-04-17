@@ -1,5 +1,4 @@
 import { BlogPostCard } from "@/components/blog-post-card"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { ArrowLeft } from "lucide-react"
@@ -46,7 +45,6 @@ export default async function BlogPage() {
             <h1 className="text-2xl font-bold text-sky-700 dark:text-sky-400">TutorDigital Blog</h1>
           </Link>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <Link href="/">
               <Button variant="ghost" className="gap-2">
                 <ArrowLeft className="h-4 w-4" />

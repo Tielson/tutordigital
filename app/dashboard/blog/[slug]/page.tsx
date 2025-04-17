@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </header>
 
-      <main className="flex-1 container py-12 mx-auto">
+      <main className="flex-1 container py-12 mx-auto px-4">
         <article className="max-w-3xl mx-auto">
           <Link
             href="/blog"

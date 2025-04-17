@@ -43,7 +43,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-10 border-b bg-background flex justify-center">
-        <div className="container flex h-16 items-center justify-between py-4">
+        <div className="container flex h-16 items-center justify-between py-4 px-4">
           <div className="flex items-center gap-4">
             <Link href="/dashboard" className="flex items-center gap-2">
               <GraduationCap className="h-6 w-6 text-sky-600" />

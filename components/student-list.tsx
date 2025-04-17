@@ -72,7 +72,7 @@ export function StudentList({ students: initialStudents }: StudentListProps) {
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="rounded-md border dark:border-gray-700">
         <Table>
           <TableHeader>
             <TableRow>

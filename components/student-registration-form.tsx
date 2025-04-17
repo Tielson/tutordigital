@@ -33,6 +33,7 @@ const formItemVariants = {
   },
 }
 
+// Atualizar o schema para validar e formatar os números de WhatsApp
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "O nome deve ter pelo menos 3 caracteres.",
@@ -43,12 +44,38 @@ const formSchema = z.object({
   grade: z.string({
     required_error: "Por favor selecione a série/turma.",
   }),
-  studentWhatsapp: z.string().min(11, {
-    message: "O número deve ter pelo menos 11 dígitos.",
-  }),
-  guardianWhatsapp: z.string().min(11, {
-    message: "O número deve ter pelo menos 11 dígitos.",
-  }),
+  studentWhatsapp: z
+    .string()
+    .min(11, {
+      message: "O número deve ter pelo menos 11 dígitos.",
+    })
+    .transform((value) => {
+      // Adicionar o prefixo 55 e remover o 9 após o DDD, se necessário
+      let formatted = value.replace(/\D/g, ""); // Remove caracteres não numéricos
+      if (!formatted.startsWith("55")) {
+        formatted = "55" + formatted;
+      }
+      if (formatted.length > 4 && formatted[4] === "9") {
+        formatted = formatted.slice(0, 4) + formatted.slice(5);
+      }
+      return formatted;
+    }),
+  guardianWhatsapp: z
+    .string()
+    .min(11, {
+      message: "O número deve ter pelo menos 11 dígitos.",
+    })
+    .transform((value) => {
+      // Adicionar o prefixo 55 e remover o 9 após o DDD, se necessário
+      let formatted = value.replace(/\D/g, ""); // Remove caracteres não numéricos
+      if (!formatted.startsWith("55")) {
+        formatted = "55" + formatted;
+      }
+      if (formatted.length > 4 && formatted[4] === "9") {
+        formatted = formatted.slice(0, 4) + formatted.slice(5);
+      }
+      return formatted;
+    }),
 })
 
 interface StudentRegistrationFormProps {
@@ -231,6 +258,9 @@ export default function StudentRegistrationForm({ schoolId }: StudentRegistratio
                   <FormControl>
                     <Input placeholder="(00) 00000-0000" type="tel" {...field} />
                   </FormControl>
+                  <FormDescription className="dark:text-gray-400">
+                    O número será formatado automaticamente para incluir o código do país (55) e remover o 9 após o DDD, se necessário.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -245,6 +275,9 @@ export default function StudentRegistrationForm({ schoolId }: StudentRegistratio
                   <FormControl>
                     <Input placeholder="(00) 00000-0000" type="tel" {...field} />
                   </FormControl>
+                  <FormDescription className="dark:text-gray-400">
+                    O número será formatado automaticamente para incluir o código do país (55) e remover o 9 após o DDD, se necessário.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
