@@ -7,15 +7,23 @@ import { motion } from "framer-motion"
 import {
   ArrowRight,
   BookOpen,
+  Brain,
   BrainCircuit,
   CheckCircle2,
   Clock,
+  FrownIcon,
   Globe,
   GraduationCap,
   Headphones,
+  ImageIcon,
   Languages,
+  MessageSquare,
+  Mic,
   Smartphone,
-  Sparkles
+  Sparkles,
+  TrendingDown,
+  Users,
+  XCircle
 } from "lucide-react"
 import Link from "next/link"
 import { redirect } from "next/navigation"
@@ -204,7 +212,7 @@ export default function Home() {
           transition={{ duration: 0.7 }}
           className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
         >
-          Aprenda <span className="text-sky-600 dark:text-sky-400">inglês</span> com um professor virtual
+         Um Professor de Inglês com Inteligência Artificial, disponível 24h no WhatsApp dos seus alunos.
         </motion.h2>
 
         <motion.p
@@ -213,8 +221,8 @@ export default function Home() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="mb-8 max-w-2xl text-lg text-gray-600 dark:text-gray-300 sm:text-xl"
         >
-          Um assistente de IA especializado em ensino de inglês via WhatsApp para alunos do ensino fundamental ao médio,
-          disponível 24/7 para prática de conversação, vocabulário e gramática.
+          Transforme o ensino de inglês da sua escola com uma solução moderna, interativa e acessível — com correção de
+          pronúncia, vocabulário em imagens e explicações gramaticais instantâneas.
         </motion.p>
 
         <motion.div
@@ -223,12 +231,14 @@ export default function Home() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex flex-col gap-4 sm:flex-row"
         >
-          <Link href="/sign-in">
-            <Button size="lg" className="gap-2 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600">
-              Gerenciar Alunos
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            className="gap-2 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600"
+            onClick={() => (window.location.href = "https://wa.me/557531997183")}
+          >
+            🔵 Solicitar Demonstração
+            <ArrowRight className="h-4 w-4" />
+          </Button>
         </motion.div>
 
         {/* Ilustração WhatsApp */}
@@ -304,7 +314,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Benefícios para a Escola */}
+      {/* Problemas + Conexão emocional */}
       <section className="relative z-10 bg-white/90 py-16 backdrop-blur-sm dark:bg-gray-900/90">
         <div className="container mx-auto px-4">
           <motion.h3
@@ -314,22 +324,32 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-4 text-center text-3xl font-bold text-gray-900 dark:text-white"
           >
-            Benefícios para o Aprendizado de Inglês
+            🎯 Os desafios no ensino de inglês que sua escola não precisa mais enfrentar:
           </motion.h3>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mb-12 max-w-2xl text-center text-gray-600 dark:text-gray-300"
-          >
-            Nossa solução traz diversos benefícios para o ensino de inglês, melhorando a experiência educacional e
-            acelerando o aprendizado dos alunos.
-          </motion.p>
-
-          <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-2">
-            {benefits.map((benefit, i) => (
+          <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-1">
+            {[
+              {
+                icon: <Clock className="h-5 w-5" />,
+                text: "⏱️ Falta de tempo dos professores para atendimento individual.",
+              },
+              {
+                icon: <FrownIcon className="h-5 w-5" />,
+                text: "😓 Alunos com dificuldade de compreensão, mas sem reforço extra.",
+              },
+              {
+                icon: <Users className="h-5 w-5" />,
+                text: "🧒 Pais preocupados com o desempenho no inglês.",
+              },
+              {
+                icon: <TrendingDown className="h-5 w-5" />,
+                text: "📉 Falta de engajamento nas aulas e baixo desempenho no ENEM.",
+              },
+              {
+                icon: <XCircle className="h-5 w-5" />,
+                text: "❌ Nenhum diferencial claro em relação à concorrência.",
+              },
+            ].map((problem, i) => (
               <motion.div
                 key={i}
                 custom={i}
@@ -339,17 +359,14 @@ export default function Home() {
                 variants={fadeIn}
                 className="flex items-start gap-3 rounded-lg border bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
               >
-                <div className="rounded-full bg-sky-100 p-2 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400">
-                  {benefit.icon}
-                </div>
-                <p className="text-gray-700 dark:text-gray-200">{benefit.text}</p>
+                <p className="text-gray-700 dark:text-gray-200 text-lg">{problem.text}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Como Funciona */}
+      {/* A Solução: Professor Edu */}
       <section className="relative z-10 bg-gradient-to-br from-sky-50 to-indigo-50 py-16 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
           <motion.h3
@@ -359,7 +376,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-4 text-center text-3xl font-bold text-gray-900 dark:text-white"
           >
-            Como Funciona o Professor Virtual
+            🚀 Apresentamos o Professor Edu – o assistente de IA que revoluciona o ensino de inglês
           </motion.h3>
 
           <motion.p
@@ -369,87 +386,48 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mb-12 max-w-2xl text-center text-gray-600 dark:text-gray-300"
           >
-            O assistente de IA conversa com os alunos pelo WhatsApp, ajudando no aprendizado de inglês. Ele entende
-            texto e áudio, adapta a linguagem conforme o nível do aluno, e oferece exercícios personalizados.
+            Professor Edu é um assistente de inteligência artificial que conversa, corrige e ensina em tempo real pelo
+            WhatsApp. Um reforço inteligente que cabe no bolso dos seus alunos, disponível 24 horas por dia, todos os
+            dias da semana.
           </motion.p>
 
-          <div className="mx-auto flex max-w-4xl flex-col items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative mb-8 h-[6px] w-full max-w-2xl rounded-full bg-gray-200 dark:bg-gray-700"
-            >
-              <div className="absolute left-0 top-0 h-full w-full rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 dark:from-sky-600 dark:to-indigo-700"></div>
-
-              <div className="absolute -top-[14px] left-[0%] flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-sky-400 text-xs font-bold text-white dark:border-gray-800 dark:bg-sky-600">
-                1
-              </div>
-              <div className="absolute -top-[14px] left-[33%] flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-sky-500 text-xs font-bold text-white dark:border-gray-800 dark:bg-sky-700">
-                2
-              </div>
-              <div className="absolute -top-[14px] left-[66%] flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-indigo-400 text-xs font-bold text-white dark:border-gray-800 dark:bg-indigo-600">
-                3
-              </div>
-              <div className="absolute -top-[14px] left-[100%] flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-indigo-500 text-xs font-bold text-white dark:border-gray-800 dark:bg-indigo-700">
-                4
-              </div>
-            </motion.div>
-
-            <div className="grid gap-6 md:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: <Mic className="h-10 w-10" />,
+                title: "🗣️ Pronúncia com Feedback e Nota",
+                description: "O aluno envia um áudio e recebe uma nota de 0 a 100, com dicas de melhora.",
+              },
+              {
+                icon: <Brain className="h-10 w-10" />,
+                title: "🧠 Gramática e Vocabulário sob Demanda",
+                description: "Dúvidas resolvidas na hora, com explicações claras em linguagem acessível.",
+              },
+              {
+                icon: <MessageSquare className="h-10 w-10" />,
+                title: "💬 Conversação Simulada",
+                description: "Prática de diálogos reais, com correção de erros em tempo real.",
+              },
+              {
+                icon: <ImageIcon className="h-10 w-10" />,
+                title: "📷 Reconhecimento de Imagens",
+                description: "O aluno envia uma imagem e recebe o vocabulário completo em inglês e português.",
+              }
+            ].map((feature, i) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={i}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="rounded-lg bg-white p-4 text-center shadow-sm dark:bg-gray-800"
+                variants={fadeIn}
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                className="rounded-lg border bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
               >
-                <h4 className="mb-2 font-semibold dark:text-white">Cadastro</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  O professor cadastra os alunos na plataforma TutorDigital
-                </p>
+                <h4 className="mb-2 text-xl font-semibold dark:text-white">{feature.title}</h4>
+                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="rounded-lg bg-white p-4 text-center shadow-sm dark:bg-gray-800"
-              >
-                <h4 className="mb-2 font-semibold dark:text-white">Acesso</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Alunos recebem acesso ao professor virtual via WhatsApp
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="rounded-lg bg-white p-4 text-center shadow-sm dark:bg-gray-800"
-              >
-                <h4 className="mb-2 font-semibold dark:text-white">Prática</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Alunos praticam inglês por texto ou áudio a qualquer momento
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="rounded-lg bg-white p-4 text-center shadow-sm dark:bg-gray-800"
-              >
-                <h4 className="mb-2 font-semibold dark:text-white">Evolução</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  IA fornece feedback e acompanha o progresso do aluno
-                </p>
-              </motion.div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -501,16 +479,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Toggle para alternar entre mensal e anual */}
-      <div className="flex justify-center my-4">
-        <button
-          onClick={togglePlan}
-          className="px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700"
-        >
-          {isAnnual ? "Exibir Planos Mensais" : "Exibir Planos Anuais"}
-        </button>
-      </div>
-
       {/* Planos e Valores */}
       <section className="relative z-10 bg-gradient-to-br from-sky-50 to-indigo-50 py-16 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
@@ -521,22 +489,58 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-4 text-center text-3xl font-bold text-gray-900 dark:text-white"
           >
-            Planos e Valores
+            💼 Escolha o plano ideal para sua escola
           </motion.h3>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mb-12 max-w-2xl text-center text-gray-600 dark:text-gray-300"
-          >
-            Escolha o plano ideal para sua escola ou curso de inglês e comece a oferecer suporte inteligente aos seus
-            alunos.
-          </motion.p>
+          {/* Toggle para alternar entre mensal e anual */}
+          <div className="flex justify-center my-8">
+            <div className="bg-white dark:bg-gray-800 rounded-full p-1 flex items-center">
+              <button
+                onClick={() => setIsAnnual(false)}
+                className={`px-4 py-2 rounded-full transition-all ${
+                  !isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
+                }`}
+              >
+                Mensal
+              </button>
+              <button
+                onClick={() => setIsAnnual(true)}
+                className={`px-4 py-2 rounded-full transition-all ${
+                  isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
+                }`}
+              >
+                Anual (20% de desconto)
+              </button>
+            </div>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {plans.map((plan, i) => (
+            {[
+              {
+                name: "Básico",
+                price: isAnnual ? "R$240" : "R$300",
+                period: isAnnual ? "/ano" : "/mês",
+                description: "Ideal para escolas pequenas",
+                features: ["Até 100 alunos", "Suporte básico", "Atualizações incluídas"],
+                highlighted: false,
+              },
+              {
+                name: "Intermediário",
+                price: isAnnual ? "R$640" : "R$800",
+                period: isAnnual ? "/ano" : "/mês",
+                description: "Para escolas de médio porte",
+                features: ["Até 500 alunos", "Suporte prioritário", "Relatórios mensais"],
+                highlighted: true,
+              },
+              {
+                name: "Avançado",
+                price: "Sob consulta",
+                period: "",
+                description: "Para escolas grandes ou redes",
+                features: ["Alunos ilimitados", "Suporte VIP", "Relatórios semanais", "Personalização avançada"],
+                highlighted: false,
+              },
+            ].map((plan, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -547,10 +551,11 @@ export default function Home() {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className={`relative rounded-xl border bg-white p-6 shadow-sm transition-all dark:border-gray-700 dark:bg-gray-800 ${plan.highlighted
+                className={`relative rounded-xl border bg-white p-6 shadow-sm transition-all dark:border-gray-700 dark:bg-gray-800 ${
+                  plan.highlighted
                     ? "border-sky-200 shadow-lg ring-1 ring-sky-200 dark:border-sky-800 dark:ring-sky-800"
                     : ""
-                  }`}
+                }`}
               >
                 {plan.highlighted && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-sky-600 px-3 py-1 text-xs font-medium text-white dark:bg-sky-700">
@@ -576,11 +581,12 @@ export default function Home() {
                 </ul>
 
                 <Button
-                  className={`w-full ${plan.highlighted
+                  className={`w-full ${
+                    plan.highlighted
                       ? "bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600"
                       : "bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
-                    }`}
-                  onClick={() => window.location.href = 'https://wa.me/557531997183'}
+                  }`}
+                  onClick={() => (window.location.href = "https://wa.me/557531997183")}
                 >
                   Contratar
                 </Button>
@@ -595,12 +601,49 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400"
           >
-            Todos os planos incluem atendimento via WhatsApp, suporte, atualizações e regras de segurança.
+            🔔 Planos anuais com até 20% de desconto.
           </motion.p>
         </div>
       </section>
 
-      {/* CTA - TutorDigital */}
+      {/* Depoimento/Autoridade */}
+      <section className="relative z-10 bg-white/90 py-16 backdrop-blur-sm dark:bg-gray-900/90">
+        <div className="container mx-auto px-4">
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white"
+          >
+            📣 O que dizem as escolas que já utilizam o Professor Edu:
+          </motion.h3>
+
+          <div className="mx-auto max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="rounded-xl bg-white p-8 shadow-lg dark:bg-gray-800"
+            >
+              <div className="mb-6 flex items-center justify-center">
+                <div className="text-4xl text-sky-600 dark:text-sky-400">❝</div>
+              </div>
+              <p className="mb-6 text-center text-lg italic text-gray-700 dark:text-gray-300">
+                "Foi um divisor de águas no reforço de inglês. Os alunos se sentiram motivados a praticar em casa, e os
+                pais adoraram o acompanhamento."
+              </p>
+              <div className="text-center">
+                <p className="font-semibold dark:text-white">Coordenadora Pedagógica</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Escola Nova Geração</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA final + Urgência */}
       <section className="relative z-10 bg-white/90 py-16 backdrop-blur-sm dark:bg-gray-900/90">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 p-8 text-center text-white shadow-lg dark:from-sky-800 dark:to-indigo-900 md:p-12">
@@ -611,7 +654,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
               className="mb-4 text-3xl font-bold"
             >
-              Gerencie seus alunos com o TutorDigital
+              🔓 Sua escola pronta para o futuro do ensino de idiomas.
             </motion.h3>
 
             <motion.p
@@ -621,8 +664,8 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-8 text-lg text-white/90"
             >
-              Nossa plataforma permite cadastrar, ativar e gerenciar todos os alunos que terão acesso ao Professor
-              Virtual de Inglês via WhatsApp.
+              Solicite uma demonstração gratuita e veja como o Professor Edu pode transformar o aprendizado de inglês na
+              sua instituição.
             </motion.p>
 
             <motion.div
@@ -631,11 +674,13 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Link href="/sign-in">
-                <Button size="lg" className="bg-white text-sky-700 hover:bg-white/90 dark:text-sky-800">
-                  Acessar Plataforma
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                className="bg-white text-sky-700 hover:bg-white/90 dark:text-sky-800 text-lg gap-2"
+                onClick={() => (window.location.href = "https://wa.me/557531997183")}
+              >
+                📲 Quero agendar uma demonstração
+              </Button>
             </motion.div>
           </div>
         </div>
