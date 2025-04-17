@@ -580,6 +580,7 @@ export default function Home() {
                       ? "bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600"
                       : "bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
                     }`}
+                  onClick={() => window.location.href = 'https://wa.me/557531997183'}
                 >
                   Contratar
                 </Button>
