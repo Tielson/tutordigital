@@ -1,16 +1,15 @@
 "use client"
 
-import { StudentDetailModal } from "@/components/student-detail-modal"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { StudentDetailModal } from "@/app/components/student-detail-modal"
+import { Badge } from "@/app/components/ui/badge"
+import { Button } from "@/app/components/ui/button"
+import { Switch } from "@/app/components/ui/switch"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table"
 import { useToast } from "@/hooks/use-toast"
 import { createClientSupabaseClient } from "@/lib/supabase"
 import { formatDate } from "@/lib/utils"
 import type { Database } from "@/types/supabase"
 import { motion } from "framer-motion"
-import { CheckCircle, XCircle } from "lucide-react"
 import { useState } from "react"
 
 type Student = Database["public"]["Tables"]["students"]["Row"]

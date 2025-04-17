@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/app/components/ui/button";
+import { toast } from "@/app/components/ui/use-toast";
 import { useState } from "react";
 
 // Import data from CSV

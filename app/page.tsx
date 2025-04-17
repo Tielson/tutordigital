@@ -1,7 +1,7 @@
 "use client"
 
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/app/components/theme-toggle"
+import { Button } from "@/app/components/ui/button"
 import { useAuth } from "@clerk/nextjs"
 import { motion } from "framer-motion"
 import {

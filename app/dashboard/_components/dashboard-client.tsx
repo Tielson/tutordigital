@@ -1,9 +1,9 @@
 "use client"
 
-import { StudentList } from "@/components/student-list"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { StudentList } from "@/app/components/student-list"
+import { Button } from "@/app/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
+import { Input } from "@/app/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { createClientSupabaseClient } from "@/lib/supabase"
 import type { Database } from "@/types/supabase"

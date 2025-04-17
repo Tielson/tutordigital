@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Textarea } from "@/components/ui/textarea"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { Textarea } from "@/app/components/ui/textarea"
 import { useEffect, useState } from "react"
 import ReactMarkdown from "react-markdown"
 

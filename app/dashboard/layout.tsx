@@ -1,5 +1,5 @@
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/app/components/theme-toggle"
+import { Button } from "@/app/components/ui/button"
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { UserButton } from "@clerk/nextjs"
 import { auth, currentUser } from "@clerk/nextjs/server"

@@ -1,4 +1,4 @@
-import StudentRegistrationForm from "@/components/student-registration-form"
+import StudentRegistrationForm from "@/app/components/student-registration-form"
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { notFound } from "next/navigation"
 
