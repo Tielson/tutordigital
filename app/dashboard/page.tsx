@@ -38,8 +38,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
 
   const registrationLink = `${process.env.NEXT_PUBLIC_APP_URL}/cadastro/${schoolData.slug}`
 
-  // Certifique-se de que searchParams.q seja tratado corretamente
-  const searchQuery = searchParams?.q ?? ""
+  // Certifique-se de que searchParams seja tratado corretamente
+  const searchQuery = (await searchParams)?.q ?? ""
 
   return (
     <DashboardClient

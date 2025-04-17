@@ -1,10 +1,23 @@
 import { UserButton } from "@clerk/nextjs"
+import { currentUser } from "@clerk/nextjs/server"
+import { redirect } from "next/navigation"
 
 export default async function NewSchoolLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const user = await currentUser()
+
+  if (!user) {
+    redirect("/sign-in")
+  }
+
+  const schoolId = user.publicMetadata.schoolId as string | undefined
+
+  if (schoolId) {
+    redirect("/dashboard")
+  }
 
   return (
     <div className="min-h-full flex flex-col">

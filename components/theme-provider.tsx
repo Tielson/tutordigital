@@ -1,19 +1,16 @@
 'use client'
 
-import {
-  ThemeProvider as NextThemesProvider,
-  type ThemeProviderProps,
-} from 'next-themes'
+import { useEffect, useState } from "react";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      {...props}
-    >
-      {children}
-    </NextThemesProvider>
-  )
+export default function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    setTheme(preferredTheme);
+    document.documentElement.className = preferredTheme;
+    document.documentElement.style.colorScheme = preferredTheme;
+  }, []);
+
+  return <>{children}</>;
 }

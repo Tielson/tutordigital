@@ -11,9 +11,11 @@ import { createClientSupabaseClient } from "@/lib/supabase"
 import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
+
 
 // Type for mutation data
 interface CreateSchoolPayload {
@@ -29,8 +31,22 @@ async function createSchool({ name, slug, logoFile, userId, currentMetadata }: C
   const supabase = createClientSupabaseClient()
   let logoUrl: string | null = null
 
+  // --- 1. Verificar se o slug já existe ---
+  const { data: existingSchool, error: checkError } = await supabase
+    .from("schools")
+    .select("id")
+    .eq("slug", slug)
+    .maybeSingle(); // Substituir .single() por .maybeSingle()
 
-  // --- 1. Insert School (without logo first) ---
+  if (checkError) {
+    console.error("Erro ao verificar slug existente:", checkError);
+    throw new Error("Erro ao verificar disponibilidade do identificador (slug).");
+  }
+
+  if (existingSchool) {
+    throw new Error("Este identificador (slug) já está em uso.");
+  }
+  // --- 2. Inserir Escola (sem logo inicialmente) ---
   const { data: newSchool, error: createError } = await supabase
     .from("schools")
     .insert({
@@ -41,17 +57,14 @@ async function createSchool({ name, slug, logoFile, userId, currentMetadata }: C
       updated_at: new Date().toISOString()
     })
     .select()
-    .single()
+    .single();
 
   if (createError) {
-    console.error("Supabase insert error:", createError)
-    if (createError.code === '23505') {
-      throw new Error("Este identificador (slug) já está em uso.")
-    }
-    throw new Error(`Erro ao criar escola: ${createError.message}`)
+    console.error("Erro ao inserir escola no Supabase:", createError);
+    throw new Error(`Erro ao criar escola: ${createError.message}`);
   }
 
-  // --- 2. Upload Logo (if provided) --- 
+  // --- 3. Upload Logo (if provided) --- 
   if (logoFile) {
     try {
       const fileExt = logoFile.name.split('.').pop()
@@ -70,7 +83,7 @@ async function createSchool({ name, slug, logoFile, userId, currentMetadata }: C
       const { data: urlData } = supabase.storage.from('logos').getPublicUrl(filePath)
       logoUrl = urlData.publicUrl
 
-      // --- 3. Update School with Logo URL --- 
+      // --- 4. Update School with Logo URL --- 
       const { error: updateError } = await supabase
         .from("schools")
         .update({ logo_url: logoUrl })
@@ -87,12 +100,9 @@ async function createSchool({ name, slug, logoFile, userId, currentMetadata }: C
     }
   }
 
-  // --- 4. Update Clerk User Metadata --- 
-  // Use fetch to call Clerk's Backend API - this is more reliable immediately after changes
-  const clerkUpdateRes = await fetch(`/api/update-clerk-metadata`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+  // --- 5. Update Clerk User Metadata --- 
+  try {
+    const clerkUpdateRes = await axios.post(`/api/update-clerk-metadata`, {
       userId,
       metadata: {
         schoolId: newSchool.id,
@@ -100,18 +110,22 @@ async function createSchool({ name, slug, logoFile, userId, currentMetadata }: C
         schoolSlug: newSchool.slug,
         schoolLogoUrl: logoUrl
       }
-    })
-  })
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' // Força o servidor a retornar JSON
+      }
+    });
 
-  if (!clerkUpdateRes.ok) {
-    // Attempt cleanup if metadata update fails
-    await supabase.from("schools").delete().eq("id", newSchool.id)
-    if (logoUrl) {
-      // Try to delete logo if it was uploaded
-      const filePath = logoUrl.substring(logoUrl.indexOf('school-logos/'))
-      await supabase.storage.from('logos').remove([filePath])
+    if (clerkUpdateRes.headers['content-type']?.includes('application/json')) {
+      console.log("Clerk update response:", clerkUpdateRes.data);
+    } else {
+      console.error("Unexpected response format:", clerkUpdateRes.data);
+      throw new Error("A resposta do servidor não está no formato JSON esperado.");
     }
-    throw new Error("Falha ao atualizar metadados do usuário.")
+  } catch (error) {
+    console.error("Erro ao atualizar metadados no Clerk:", error);
+    throw new Error("Falha ao atualizar metadados do usuário.");
   }
 
   return { ...newSchool, logo_url: logoUrl } // Return the final school data
@@ -151,10 +165,16 @@ export default function NewSchoolPage() {
     return () => subscription.unsubscribe()
   }, [form])
 
+
   const createSchoolMutation = useMutation({
-    mutationFn: createSchool,
+    mutationFn: async (data: CreateSchoolPayload) => await createSchool(data),
     onSuccess: async (data) => {
-      router.push("/dashboard") 
+      console.log("Escola criada com sucesso:", data);
+      console.log("Tentando redirecionar para o dashboard...");
+      setTimeout(() => {
+        router.push("/dashboard");
+        console.log("dashboard passou");
+      }, 100);
       toast({
         title: "Escola Criada!",
         description: `A escola "${data.name}" foi cadastrada com sucesso.`,
@@ -290,4 +310,4 @@ export default function NewSchoolPage() {
       </Card>
     </div>
   )
-} 
+}

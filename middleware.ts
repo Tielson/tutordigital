@@ -20,7 +20,6 @@ interface UserPublicMetadata {
 }
 
 export default clerkMiddleware(async (auth, req) => {
-  
 
   if (isPublicRoute(req)) {
     return NextResponse.next();
@@ -35,29 +34,37 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // Extract publicMetadata from session claims
-  const publicMetadata = sessionClaims?.metadata as UserPublicMetadata | undefined;
-  const schoolId = publicMetadata?.schoolId;
+  const schoolId = sessionClaims?.metadata.schoolId as UserPublicMetadata | undefined;
+  
+  if (req.nextUrl.pathname === "/dashboard") {
+    console.log("Solicitação para /dashboard interceptada no middleware");
+  }
 
-  if (req.nextUrl.pathname === "/new-school") {
+  if (req.nextUrl.pathname === "/new-school" || req.nextUrl.pathname === "/api/update-clerk-metadata") {
     if (schoolId) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
     return NextResponse.next();
   }
 
-  // Then handle all other protected routes
-  if (!schoolId) {
-    return NextResponse.redirect(new URL("/new-school", req.url));
+  if (req.nextUrl.pathname === "/new-school") {
+    if (!schoolId) {
+      return NextResponse.redirect(new URL("/new-school", req.url));
+    }
+    return NextResponse.next();
   }
+
+  // Then handle all other protected routes
+ 
 
   return NextResponse.next();
 });
 
+
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
+    '/api/update-clerk-metadata',
+    '/((?!_next|static|favicon.ico|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
     '/(api|trpc)(.*)',
   ],
-}
+};
