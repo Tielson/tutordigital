@@ -60,17 +60,24 @@ export default async function DashboardLayout({
             <h1 className="text-xl font-semibold">{school?.name || "Painel Administrativo"}</h1>
           </div>
           <div className="flex items-center gap-2">
-              <Link href="/dashboard/blog">
-                <Button variant="ghost" size="sm">
-                  Blog
-                </Button>
-              </Link>
-              <ThemeToggle />
-              <UserButton afterSignOutUrl="/" />
-            </div>
+            <Link href="/dashboard/blog">
+              <Button variant="ghost" size="sm">
+                Blog
+              </Button>
+            </Link>
+            <ThemeToggle />
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
       </header>
-      <main className="flex-1 flex justify-center max-sm:px-4">{children}</main>
+      <main className="flex-1 flex justify-center max-sm:px-4 relative">
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-indigo-50 opacity-80 dark:from-gray-900 dark:via-gray-800 dark:to-gray-950 dark:opacity-100" />
+          <div className="absolute -top-[40%] -right-[60%] h-[1000px] w-[1000px] rounded-full bg-gradient-to-br from-sky-100/40 to-indigo-200/40 blur-3xl dark:from-sky-900/20 dark:to-indigo-900/20" />
+          <div className="absolute -bottom-[40%] -left-[60%] h-[1000px] w-[1000px] rounded-full bg-gradient-to-br from-blue-100/40 to-purple-200/40 blur-3xl dark:from-blue-900/20 dark:to-purple-900/20" />
+        </div>
+        {children}
+      </main>
     </div>
   )
 }
