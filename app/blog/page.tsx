@@ -2,7 +2,9 @@ import { BlogPostCard } from "@/app/components/blog-post-card"
 import { ThemeToggle } from "@/app/components/theme-toggle"
 import { Button } from "@/app/components/ui/button"
 import { createServerSupabaseClient } from "@/app/lib/supabase"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, ArrowRight, GraduationCap } from "lucide-react"
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../../components/ui/menubar"
+
 import Link from "next/link"
 
 export const revalidate = 3600 // Revalidate every hour
@@ -27,32 +29,57 @@ export default async function BlogPage() {
 
       {/* Header */}
       <header className="relative z-10 border-b bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
+
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-8 w-8 text-sky-600 dark:text-sky-400"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
-            <h1 className="text-2xl font-bold text-sky-700 dark:text-sky-400">TutorDigital Blog</h1>
-          </Link>
           <div className="flex items-center gap-2">
+            <GraduationCap className="h-8 w-8 text-sky-600 dark:text-sky-400" />
+            <div>
+              TutorDigital
+            </div>
+          </div>
+          <div className="hidden md:flex">
             <ThemeToggle />
-            <Link href="/">
+            <Link href="/blog">
               <Button variant="ghost" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Voltar para Home
+                Blog
               </Button>
             </Link>
+            <Link href="/sign-in">
+              <Button variant="ghost" className="gap-2">
+                Área do Professor
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+          <div className="block md:hidden">
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Menu</MenubarTrigger>
+              <MenubarContent>
+                <Link href="/">
+                  <MenubarItem asChild>
+                    <Button variant="ghost" className="flex items-center gap-2">
+                      <ArrowLeft className="h-4 w-4" />
+                      Voltar para Home
+                    </Button>
+                  </MenubarItem>
+                </Link>
+                <Link href="/sign-in" passHref legacyBehavior>
+                  <MenubarItem asChild>
+                    <Button variant="ghost" className="flex items-center gap-2">
+                      Área do Professor
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </MenubarItem>
+                </Link>
+                <MenubarSeparator />
+                <MenubarItem >
+                  Tema
+                  <MenubarShortcut><ThemeToggle /></MenubarShortcut>
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
           </div>
         </div>
       </header>

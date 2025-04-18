@@ -3,6 +3,7 @@
 import { ThemeToggle } from "@/app/components/theme-toggle"
 import { Button } from "@/app/components/ui/button"
 import { useAuth } from "@clerk/nextjs"
+
 import { motion } from "framer-motion"
 import {
   ArrowRight,
@@ -28,6 +29,7 @@ import {
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../components/ui/menubar"
 
 // Nome da aplicação: TutorDigital
 export default function Home() {
@@ -178,21 +180,54 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-2"
           >
-            <ThemeToggle />
-            <Link href="/blog">
-              <Button variant="ghost" className="gap-2">
-                Blog
-              </Button>
-            </Link>
-            <Link href="/sign-in">
-              <Button variant="ghost" className="gap-2">
-                Área do Professor
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+            <div className="hidden md:flex">
+              <ThemeToggle />
+              <Link href="/blog">
+                <Button variant="ghost" className="gap-2">
+                  Blog
+                </Button>
+              </Link>
+              <Link href="/sign-in">
+                <Button variant="ghost" className="gap-2">
+                  Área do Professor
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </motion.div>
+
+            <div className="block md:hidden">
+              <Menubar>
+                <MenubarMenu>
+                  <MenubarTrigger>Menu</MenubarTrigger>
+                  <MenubarContent>
+                    <Link href="/blog" passHref legacyBehavior>
+                      <MenubarItem asChild>
+                        <button>Blog</button>
+                      </MenubarItem>
+                    </Link>
+                    <Link href="/sign-in" passHref legacyBehavior>
+                      <MenubarItem asChild>
+                        <button className="flex items-center gap-2">
+                          Área do Professor
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </MenubarItem>
+                    </Link>
+                    <MenubarSeparator />
+                    <MenubarItem >
+                      Tema
+                      <MenubarShortcut><ThemeToggle /></MenubarShortcut>
+                    </MenubarItem>
+                  </MenubarContent>
+                </MenubarMenu>
+              </Menubar>
+          </div>
         </div>
-      </header>
+      </header >
+
+      {/* Menubar para Mobile */}
+
 
       {/* Hero Section - IA Educacional */}
       <section className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
@@ -212,7 +247,7 @@ export default function Home() {
           transition={{ duration: 0.7 }}
           className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
         >
-         Um Professor de Inglês com Inteligência Artificial, disponível 24h no WhatsApp dos seus alunos.
+          Um Professor de Inglês com Inteligência Artificial, disponível 24h no WhatsApp dos seus alunos.
         </motion.h2>
 
         <motion.p
@@ -497,17 +532,15 @@ export default function Home() {
             <div className="bg-white dark:bg-gray-800 rounded-full p-1 flex items-center">
               <button
                 onClick={() => setIsAnnual(false)}
-                className={`px-4 py-2 rounded-full transition-all ${
-                  !isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
-                }`}
+                className={`px-4 py-2 rounded-full transition-all ${!isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
+                  }`}
               >
                 Mensal
               </button>
               <button
                 onClick={() => setIsAnnual(true)}
-                className={`px-4 py-2 rounded-full transition-all ${
-                  isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
-                }`}
+                className={`px-4 py-2 rounded-full transition-all ${isAnnual ? "bg-sky-600 text-white" : "text-gray-600 dark:text-gray-300"
+                  }`}
               >
                 Anual (20% de desconto)
               </button>
@@ -551,11 +584,10 @@ export default function Home() {
                 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className={`relative rounded-xl border bg-white p-6 shadow-sm transition-all dark:border-gray-700 dark:bg-gray-800 ${
-                  plan.highlighted
-                    ? "border-sky-200 shadow-lg ring-1 ring-sky-200 dark:border-sky-800 dark:ring-sky-800"
-                    : ""
-                }`}
+                className={`relative rounded-xl border bg-white p-6 shadow-sm transition-all dark:border-gray-700 dark:bg-gray-800 ${plan.highlighted
+                  ? "border-sky-200 shadow-lg ring-1 ring-sky-200 dark:border-sky-800 dark:ring-sky-800"
+                  : ""
+                  }`}
               >
                 {plan.highlighted && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-sky-600 px-3 py-1 text-xs font-medium text-white dark:bg-sky-700">
@@ -581,11 +613,10 @@ export default function Home() {
                 </ul>
 
                 <Button
-                  className={`w-full ${
-                    plan.highlighted
-                      ? "bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600"
-                      : "bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
-                  }`}
+                  className={`w-full ${plan.highlighted
+                    ? "bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-600"
+                    : "bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
+                    }`}
                   onClick={() => (window.location.href = "https://wa.me/557531997183")}
                 >
                   Contratar
@@ -646,7 +677,7 @@ export default function Home() {
       {/* CTA final + Urgência */}
       <section className="relative z-10 bg-white/90 py-16 backdrop-blur-sm dark:bg-gray-900/90">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 p-8 text-center text-white shadow-lg dark:from-sky-800 dark:to-indigo-900 md:p-12">
+          <div className="mx-auto max-w-4xl relative rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 p-8 text-center text-white shadow-lg dark:from-sky-800 dark:to-indigo-900 md:p-12">
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -673,10 +704,11 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              className="opacity-100 transform-none bg-white rounded-[10px] p-[15px] flex justify-center items-center"
             >
               <Button
                 size="lg"
-                className="bg-white text-sky-700 hover:bg-white/90 dark:text-sky-800 text-lg gap-2"
+                className="bg-white text-sky-700 text-wrap p-4 hover:bg-white/90 dark:text-sky-800 text-lg gap-2 relative"
                 onClick={() => (window.location.href = "https://wa.me/557531997183")}
               >
                 📲 Quero agendar uma demonstração
@@ -694,6 +726,6 @@ export default function Home() {
           </p>
         </div>
       </footer>
-    </div>
+    </div >
   )
 }
