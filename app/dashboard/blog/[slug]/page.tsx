@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               >
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
               </svg>
-              <h1 className="text-2xl font-bold text-sky-700 dark:text-sky-400">TutorDigital Blog</h1>
+              <h1 className="text-2xl font-bold text-sky-700 dark:text-sky-400">EnglishApp Blog</h1>
             </Link>
           </div>
           <div className="flex items-center gap-2">
@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <footer className="relative z-10 border-t bg-white/80 py-6 text-center backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
         <div className="container mx-auto px-4">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            © {new Date().getFullYear()} TutorDigital - Sistema de Gestão para Professor Virtual de Inglês
+            © {new Date().getFullYear()} EnglishApp - Sistema de Gestão para Professor Virtual de Inglês
           </p>
         </div>
       </footer>

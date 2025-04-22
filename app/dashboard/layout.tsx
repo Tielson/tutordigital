@@ -47,7 +47,7 @@ export default async function DashboardLayout({
           <div className="flex items-center gap-4">
             <Link href="/dashboard" className="flex items-center gap-2">
               <GraduationCap className="h-6 w-6 text-sky-600" />
-              <span className="font-semibold text-sky-700">TutorDigital</span>
+              <span className="font-semibold text-sky-700">EnglishApp</span>
             </Link>
             <div className="h-4 w-px bg-gray-300" />
             {school?.logo_url && (

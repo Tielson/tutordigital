@@ -14,7 +14,6 @@ import {
   Clock,
   FrownIcon,
   Globe,
-  GraduationCap,
   Headphones,
   ImageIcon,
   Languages,
@@ -26,12 +25,14 @@ import {
   Users,
   XCircle
 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../components/ui/menubar"
+import logo from '../public/logo.svg'
 
-// Nome da aplicação: TutorDigital
+// Nome da aplicação: Englishapp
 export default function Home() {
   const { userId, isLoaded } = useAuth()
   const [mounted, setMounted] = useState(false)
@@ -158,20 +159,20 @@ export default function Home() {
       <header className="relative z-10 border-b bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <motion.div
-              initial={{ rotate: -10, scale: 0.9 }}
-              animate={{ rotate: 0, scale: 1 }}
-              transition={{ duration: 0.5, type: "spring" }}
-            >
-              <GraduationCap className="h-8 w-8 text-sky-600 dark:text-sky-400" />
-            </motion.div>
             <motion.h1
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl font-bold text-sky-700 dark:text-sky-400"
+              className="text-2xl font-bold text-sky-700 dark:text-sky-400 relative overflow-hidden"
             >
-              TutorDigital
+              <Image
+              src={logo}
+              alt="Logo Englishapp"
+              width={150}
+              height={50}
+              className="relative rounded-full object-contain"
+              />
+              
             </motion.h1>
           </div>
           <motion.div
@@ -722,7 +723,7 @@ export default function Home() {
       <footer className="relative z-10 border-t bg-white/80 py-6 text-center backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
         <div className="container mx-auto px-4">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            © {new Date().getFullYear()} TutorDigital - Sistema de Gestão para Professor Virtual de Inglês
+            © {new Date().getFullYear()} Englishapp - Sistema de Gestão para Professor Virtual de Inglês
           </p>
         </div>
       </footer>
